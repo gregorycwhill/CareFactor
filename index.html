@@ -9,6 +9,14 @@
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
+  </script>
 <body class="w3-light-grey">
 
 <!-- Top container -->
@@ -204,7 +212,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <hr>
   <div class="w3-container">
     <h5>Recent Users</h5>
-    <ul class="w3-ul w3-card-4 w3-white">
+    <ul class="w3-ul w3-card-4 w3-white" id="sortable">
       <li class="w3-padding-16">
         <img src="w3images/avatar2.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
         <span class="w3-xlarge">Mike</span><br>
