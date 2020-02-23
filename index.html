@@ -56,20 +56,20 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	
 	<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fas fa-plug fa-fw"></i>  Connections</a>
 	
-	<div id="accordion">
+	<div id="accordion" style="font-size: 90%;">
 
 		<h3 class="w3-bar-item w3-button w3-padding"><img src="w3images\facebook-icon.png"><span class="w3-padding">Facebook</span></h3>
 		<div>
 			<p style="color: Gainsboro;"><i class="fas fa-heart fa-fw "></i><i class="w3-padding">Listening to likes</i></p>
 			<p><i class="fas fa-user-plus fa-fw"></i><span class="w3-padding">Listening to follows</span></p>
-			<p><i class="fas fa-align-justify fa-fw"></i><span class="w3-padding">Sync to feed</span></p>		
+			<p><i class="fas fa-align-justify fa-fw"></i><span class="w3-padding">Syncing to feed</span></p>		
 		</div>
 
 		<h3 class="w3-bar-item w3-button w3-padding"><img src="w3images\instagram-icon.png"><span class="w3-padding">Instagram</span></h3>
 		<div>
 			<p style="color: Gainsboro;"><i class="fas fa-heart fa-fw "></i><i class="w3-padding">Listening to likes</i></p>
 			<p><i class="fas fa-user-plus fa-fw"></i><span class="w3-padding">Listening to follows</span></p>
-			<p style="color: Gainsboro;"><i class="fas fa-align-justify fa-fw"></i><i class="w3-padding">Sync to feed</i></p>		
+			<p style="color: Gainsboro;"><i class="fas fa-align-justify fa-fw"></i><i class="w3-padding">Syncing to feed</i></p>		
 		</div>
 	  
 	  
@@ -77,14 +77,14 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 		<div>
 			<p><i class="fas fa-heart fa-fw "></i><span class="w3-padding">Listening to likes</span></p>
 			<p><i class="fas fa-user-plus fa-fw"></i><span class="w3-padding">Listening to follows</span></p>
-			<p><i class="fas fa-align-justify fa-fw"></i><span class="w3-padding">Sync to feed</span></p>		
+			<p><i class="fas fa-align-justify fa-fw"></i><span class="w3-padding">Syncing to feed</span></p>		
 		</div>
 
 		<h3 class="w3-bar-item w3-button w3-padding"><img src="w3images\linkedin-icon.png"><span class="w3-padding">LinkedIn</span></h3>
 		<div>
 			<p><i class="fas fa-heart fa-fw "></i><span class="w3-padding">Listening to likes</span></p>
 			<p><i class="fas fa-user-plus fa-fw"></i><span class="w3-padding">Listening to follows</span></p>
-			<p style="color: Gainsboro;"><i class="fas fa-align-justify fa-fw"></i><i class="w3-padding">Sync to feed</i></p>		
+			<p style="color: Gainsboro;"><i class="fas fa-align-justify fa-fw"></i><i class="w3-padding">Syncing to feed</i></p>		
 		</div>
 
   </div>	
@@ -141,10 +141,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 			   <p>Use the controls to set the number of causes you'd like to support and the monthly spend.</p>
 			   <p>The portfolio will automatically update.</p>
 	 
-			   <label>Causes = </label>
-			   <input type="text" id="SlotsValue" size="1" >
-			   <input type="range" id="Slots" value="" min="1" max="8" onChange="setCell('','Experiment!B2',this.value);"><br>
-			   <label>Spend = $</label><input type="text" id="SpendValue" size="3" value="" onChange="setCell('','Experiment!B3',this.value)">
+			   <label>Number of Causes = </label>
+			   <span type="text" id="SlotsText" size="1">8</span>
+			   <input type="range" id="SlotsSlider" value="8" min="1" max="8" onChange="updateInput();"><br>
+			   <label>Spend = $</label><input type="text" id="SpendText" size="3" value="100" onChange="updateInput();">
     
 		</div>
 		<div class="w3-twothird">

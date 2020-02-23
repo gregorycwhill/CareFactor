@@ -45,21 +45,19 @@ function getUrlParameter(name) {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
-   
-function updateSlotInput(v) {
-    document.getElementById('Slots').value=v;
-    document.getElementById('SlotsValue').value=v; 
-}
-
-function updateSpendInput(v) {
-    document.getElementById('SpendValue').value=v; 
-}
-        
+    
 function updateInput(){
-	var v = document.getElementById('Slots').value;
-	document.getElementById('SlotsValue').value=v;
-    document.getElementById('local-chart').innerHTML = "<p>Please wait ... recalculating your portfolio</p>"
-    setTimeout(drawChart,5000);
+
+	var slots = document.getElementById('SlotsSlider').value;
+	var spend = document.getElementById('SpendText').value;
+
+	document.getElementById('SlotsText').innerHTML=slots;
+
+	setCell('','Experiment!B2',slots); // callback
+	setCell('','Experiment!B3',spend); // callback
+
+    document.getElementById('portfolio-chart-treemap').innerHTML = "<p>Please wait ... recalculating your portfolio</p>"
+    setTimeout(drawChart,5000); // wait for spreadsheet to get new values and recalculate
 }
 
 google.charts.load('current', {'packages':['treemap']});
@@ -96,9 +94,9 @@ function handleQueryResponse(response) {
 
 function initPortfolio() {
      
-     // reads URL parameter
+     // reads URL parameter to get UserID
      // if present, loads page inputs with values for that user
-     // if not present, selects default and unhides new user DIV and hides existing user DIV
+     // if not present, selects default and unhides new user DIV
      
 
 	UserID=getUrlParameter('UserID');
@@ -108,38 +106,44 @@ function initPortfolio() {
     if (UserID === '') {
 		UserID = 5;
 		document.getElementById("new-user-intro").style.display = "block";
-		//alert(document.getElementById("new-user").style.display);
 	}
 	else {
 		document.getElementById("new-user-salutation").innerHTML="Welcome back, "+UserID+"!";
 	}
 	
      // set userID in spreadsheet
-    setCell('','Experiment!B1',UserID);
+    setCell('','Experiment!B1',UserID); // Wait on callback before completing set parameters
+}
+
+function setParameters(){ 
      
      // get slots value from spreadsheet
-     var slots = getCell('','Experiment!B2');
+    getCell('','Experiment!B2', 'SlotsSlider');
      
      // get spend value from spreadsheet
-     var spendvalue = getCell('','Experiment!B3');
+    getCell('','Experiment!B3', 'SpendText');
      
-     drawChart();
-     }
+    setTimeout(updateInput(),3000);
+}
      
 	
-function getCell(sheetID, rangeName) {
+function getCell(sheetID, rangeName, htmlID) {
 
   if(!sheetID)
     sheetID = '1ZB-fGSOy-Z006AW_YZiBUsGsxlW03kuJmQh60PKzG-8';
   if (!rangeName)
     rangeName = 'Experiment!B3';
     
-  var values = Sheets.Spreadsheets.Values.get(sheetID, rangeName).values;
+	url = "https://script.google.com/macros/s/AKfycbznMZbVEChkPICRcVc26o8rv-Wg0MQWQTMf7seXM41-/exec?action=get&sheet="+sheetID+"&range="+rangeName+"&callback=?"
 
+	//alert(url);
 
-  var result = values[0][0];
-  
-  return result;
+	$.getJSON(url,function(data){ document.getElementById(htmlID).value=data; alert(htmlID+" = "+data);});
+//	$.getJSON(url,function(data){ alert(data[0]);});
+  // var values = Sheets.Spreadsheets.Values.get(sheetID, rangeName).values;
+
+ 
+  return;
 }
 
 function setCell(sheetID, rangeName, val) {
@@ -151,14 +155,18 @@ function setCell(sheetID, rangeName, val) {
   
   if (!val)
     val = 2;
-      
-  var valueRange = Sheets.newValueRange();
 
-  valueRange.values = [[val]];
-  var result = Sheets.Spreadsheets.Values.update(valueRange, sheetID, rangeName, {
-      valueInputOption: "USER_ENTERED"
-  });
-  
-  return result;
+	url = "https://script.google.com/macros/s/AKfycbznMZbVEChkPICRcVc26o8rv-Wg0MQWQTMf7seXM41-/exec?action=set&sheet="+sheetID+"&range="+rangeName+"&value="+val+"&callback=?"
+
+	//alert(url);
+
+	//$.getJSON(url,function(data){ alert(data.updatedRows);});
+
+	$.getJSON(url);
+
+	if (rangeName == "Experiment!B1") { // if setting UserID, reset portfolio parameters		
+		setParameters();
+	}
+  return;
 
 }
