@@ -138,7 +138,7 @@ function getCell(sheetID, rangeName, htmlID) {
 
 	//alert(url);
 
-	$.getJSON(url,function(data){ document.getElementById(htmlID).value=data; alert(htmlID+" = "+data);});
+	$.getJSON(url,function(data){ document.getElementById(htmlID).value=data; });
 //	$.getJSON(url,function(data){ alert(data[0]);});
   // var values = Sheets.Spreadsheets.Values.get(sheetID, rangeName).values;
 
