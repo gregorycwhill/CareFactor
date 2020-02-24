@@ -134,7 +134,7 @@ function getCell(sheetID, rangeName, htmlID) {
   if (!rangeName)
     rangeName = 'Experiment!B3';
     
-	url = "https://script.google.com/macros/s/AKfycbznMZbVEChkPICRcVc26o8rv-Wg0MQWQTMf7seXM41-/exec?action=get&sheet="+sheetID+"&range="+rangeName+"&callback=?"
+	url = "https://script.google.com/macros/s/AKfycbwARmLZht0rIZHsB61HljietXbQ29BFj0mtxZTeUpXzvAmg0VhLO1uYRsr62_MSDNE/exec?action=get&sheet="+sheetID+"&range="+rangeName+"&callback=?"
 
 	//alert(url);
 
@@ -156,7 +156,7 @@ function setCell(sheetID, rangeName, val) {
   if (!val)
     val = 2;
 
-	url = "https://script.google.com/macros/s/AKfycbznMZbVEChkPICRcVc26o8rv-Wg0MQWQTMf7seXM41-/exec?action=set&sheet="+sheetID+"&range="+rangeName+"&value="+val+"&callback=?"
+	url = "https://script.google.com/macros/s/AKfycbwARmLZht0rIZHsB61HljietXbQ29BFj0mtxZTeUpXzvAmg0VhLO1uYRsr62_MSDNE/exec?action=set&sheet="+sheetID+"&range="+rangeName+"&value="+val+"&callback=?"
 
 	//alert(url);
 
