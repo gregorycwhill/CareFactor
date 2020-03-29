@@ -14,6 +14,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="jquery.ui.touch-punch.min.js"></script>
 <script src="CareFactor.js"></script>
 <style>
 /* for autocomplete box */
@@ -131,21 +132,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <h5><i class="fas fa-address-card fa-fw"></i>    Your Giving Profile</h5>
 			<div id="tabs">
 				<ul>
-					<li><a href="#tabs-1">Structure</a></li>
+					<li><a href="#tabs-1">Focus</a></li>
 					<li><a href="#tabs-2">Approach</a></li>
 					<li><a href="#tabs-3">Scope</a></li>
 					<li><a href="#tabs-4">Targets</a></li>
+					<li><a href="#tabs-5">Funding</a></li>
 				</ul>
 				<div id="tabs-1">
 					<p>Please drag and drop these items to rank your preferences.</p>
 					<ul class="w3-ul w3-card-4 w3-blue" id="sortable1">
-						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Community Groups</li>
-						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Philanthropic Funds</li>
-						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Non-Government Organisations</li>
-						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Public Institutions</li>
-						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Crowd Founded</li>
-						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Religious Organisations</li>
-						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Corporate Funds</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Community &amp; Welfare</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Health</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Religion</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>International Aid &amp; Development</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Education</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Environment &amp; Animal Welfare</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Sporting &amp; Recreation</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Arts &amp; Culture</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Disaster Relief</li>
 					</ul>
  				
 			    </div>
@@ -155,45 +159,67 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Research</li>
 						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Political Activism</li>
 						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Public Advocacy</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Education &amp; Training</li>
 						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Service Delivery</li>
 						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Direct Support</li>
 					</ul>
  			  
 			  </div>
 			  <div id="tabs-3">
-			  		<p>Please use the sliders to set your preferences.</p>
-					<center><p style="w3-center">
-						<label for="places1">Local:</label>
-						<input type="text" id="places1" readonly style="border:0; font-weight:bold; width:50px;">
-						<label for="places2">National:</label>
-						<input type="text" id="places2" readonly style="border:0; font-weight:bold; width:50px;">
-						<label for="places3">Global:</label>
-						<input type="text" id="places3" readonly style="border:0; font-weight:bold; width:50px;">
-					</p></center>
-	 
-					<div id="slider-range"></div>
-	 
+			  		<p>Please use the sliders to set your preferences.</p><br>
+					<center><div id="scope-slider" style=" width:100%;">
+						<span id="slider0" style="position: absolute; top: -25px; left: 5%;">L</span>
+						<span id="slider1" style="position: absolute; top: -25px; left: 25%;">R</span>
+						<span id="slider2" style="position: absolute; top: -25px; left: 55%;">S</span>
+						<span id="slider3" style="position: absolute; top: -25px; left: 75%;">N</span>
+						<span id="slider4" style="position: absolute; top: -25px; left: 95%;">G</span>					
+					</div></center>
+					<p id="sliders">
+						<label for="places1">Local:</label><span id="places1">10</span><span>%</span><br/>
+						<label for="places2">Regional:</label><span id="places2">30</span><span>%</span><br/>
+						<label for="places3">State:</label><span id="places3">30</span><span>%</span><br/>
+						<label for="places4">National:</label><span id="places4">20</span><span>%</span><br/>
+						<label for="places5">Global:</label><span id="places5">10</span><span>%</span><br/>
+					</p>
+ 
 			  </div>
 			  <div id="tabs-4">
 					<p>Please select from the drop-down list.</p>
 					<select name="benficiary" id="beneficiary">
-					  <option>Disasters</option>
-					  <option>War</option>
-					  <option selected="selected">Illness</option>
-					  <option>Poverty</option>
-					  <option>Crime</option>
-					  <option>Cruelty</option>
+					  <option>Children</option>
+					  <option>Youth</option>
+					  <option selected="selected">Sick</option>
+					  <option>Parents</option>
+					  <option>Women</option>
+					  <option>Men</option>
+					  <option>Elderly</option>
+					  <option>Underpriveleged</option>
+					  <option>Victims</option>
+					  <option>Animals</option>
+					  <option>Community</option>
 					  <option>Environment</option>
-					  <option>Refugees</option>
+					  <option>Disabled</option>
 					</select>
 					<input id="keyword">
-
-
+					
 				<p>Optionally, use the search box to further specify an item.</p>
 				
 			  </div>
+
+				<div id="tabs-5">
+					<p>Please drag and drop these items to rank your preferences.</p>
+					<ul class="w3-ul w3-card-4 w3-blue" id="sortable3">
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Individual Donors</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Institutional Funds</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Philanthropic Trusts</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Government Services</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Legacies &amp; Bequests</li>
+						<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Social Enterprises</li>
+					</ul>
+			  
 			</div>
       </div>
+	</div>
       <div class="w3-twothird">
         <h5><i class="fas fa-chart-pie fa-fw"></i>    Your Giving Portfolio</h5>
 		<div class="w3-third">
@@ -203,8 +229,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	 
 			   <label>Number of Causes = </label>
 			   <span type="text" id="SlotsText" size="1">8</span><br>
-			   <input type="range" id="SlotsSlider" value="8" min="1" max="8" onChange="updateInput();"><br>
-			   <label>Spend = $</label><input type="text" id="SpendText" size="3" value="100" onChange="updateInput();">
+			   <input type="range" id="SlotsSlider" value="8" min="1" max="25" onChange="updateInput();"><br>
+			   <label>Monthly Spend = $</label><input type="text" id="SpendText" size="3" value="100" onChange="updateInput();">
     
 		</div>
 		<div class="w3-twothird">
