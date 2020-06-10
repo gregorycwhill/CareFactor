@@ -118,15 +118,32 @@ function updateInput(){
 	setCell('','Experiment!B3',spend); // callback
 
     document.getElementById('portfolio-chart-treemap').innerHTML = "<p>Please wait ... recalculating your portfolio</p>"
-    setTimeout(drawChart,5000); // wait for spreadsheet to get new values and recalculate
+    setTimeout(drawChart,3000); // wait for spreadsheet to get new values and recalculate
 }
 
 google.charts.load('current', {'packages':['treemap']});
 google.charts.setOnLoadCallback(drawChart);
-      
+portfolioData="";
+portfolioTree="";
+portfolioOptions={
+		minColor: '#cce',
+        midColor: '#dda',
+        maxColor: '#ee8',
+        headerHeight: 20,
+        fontColor: 'black',
+        showScale: true,
+		generateTooltip: showBoost
+    }
+	
+// clear care boosts
+	for(var i=2; i<29; i++) 
+		setCell('','Experiment!L'+i,'0');	
+     
+CareBoost = getUrlParameter('CareBoost');
+	 
 function drawChart() {
 	var query = new google.visualization.Query(
-    'https://docs.google.com/spreadsheets/d/1ZB-fGSOy-Z006AW_YZiBUsGsxlW03kuJmQh60PKzG-8/gviz/tq?gid=487731565&headers=1&range=H1:J27');
+    'https://docs.google.com/spreadsheets/d/1ZB-fGSOy-Z006AW_YZiBUsGsxlW03kuJmQh60PKzG-8/gviz/tq?gid=487731565&headers=1&range=i1:k27');
     query.send(handleQueryResponse);
 }
 
@@ -137,21 +154,56 @@ function handleQueryResponse(response) {
 		return;
 	}
 
-	var data = response.getDataTable();
+	portfolioData = response.getDataTable();
 
-    tree = new google.visualization.TreeMap(document.getElementById('portfolio-chart-treemap'));
+    portfolioTree = new google.visualization.TreeMap(document.getElementById('portfolio-chart-treemap'));
 
-    tree.draw(data, {
-		minColor: '#cce',
-        midColor: '#dda',
-        maxColor: '#ee8',
-        headerHeight: 20,
-        fontColor: 'black',
-        showScale: true
-    });
-
+    portfolioTree.draw(portfolioData, portfolioOptions);
+	
+	if (CareBoost) {
+		
+		rowMax = portfolioData.getNumberOfRows();
+		row = -1;
+		
+		for(var i=0; i<rowMax; i++) {
+			if (portfolioData.getValue(i,0)==CareBoost) {
+				row=i;
+			}
+		}
+		if(row==-1)
+			alert("Warning! CareBoost not applied as " + CareBoost + " is not in your portfolio.");
+		else
+			doBoost(row);
+	CareBoost = "";
+	}	
 }
-     
+
+function showBoost(row, size, value) {
+	
+	spend = parseFloat(document.getElementById("SpendText").value);
+	
+	html = '<div style="background:#eee; padding:10px; border-style:solid">' +
+	'<b>' + portfolioData.getValue(row,0) + '</b><br>' +
+	'[$'+ (portfolioData.getValue(row,2)*spend).toFixed(2) + ']<br><br>' +
+
+	'Click here to <a href="#" onClick="doBoost('+row+');$(this).parent().hide(); ">CareBoost</a>.</div>';
+	
+	return html;
+	}
+
+function doBoost(row) {
+	
+	var val = portfolioData.getValue(row,2)
+	
+	range='Experiment!L'.concat(2+row);
+	
+	setCell('',range,val*2);
+	portfolioTree.clearChart();
+	document.getElementById('portfolio-chart-treemap').innerHTML = "<p>Please wait ... Applying CareBoost to <b>" + portfolioData.getValue(row,0)+ "</b>.</p>"
+	//setTimeout(portfolioTree.draw(portfolioData, portfolioOptions),3000);
+	setTimeout(drawChart,3000);
+	return;
+}
 
 function initPortfolio() {
      
@@ -173,7 +225,11 @@ function initPortfolio() {
 	}
 	
      // set userID in spreadsheet
-    setCell('','Experiment!B1',UserID); // Wait on callback before completing set parameters
+    
+	setCell('','Experiment!B1',UserID); // Wait on callback before completing set parameters
+
+//	for(var i=2; i<28; i++) 
+//		setCell('','Experiment!L'+i,'0');
 }
 
 function setParameters(){ 
@@ -183,7 +239,7 @@ function setParameters(){
      
      // get spend value from spreadsheet
     getCell('','Experiment!B3', 'SpendText');
-     
+	
     setTimeout(updateInput(),3000);
 }
      
