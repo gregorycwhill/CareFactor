@@ -111,11 +111,14 @@ function updateInput(){
 
 	var slots = document.getElementById('SlotsSlider').value;
 	var spend = document.getElementById('SpendText').value;
+	var flex = document.getElementById('FlexSlider').value;
 
 	document.getElementById('SlotsText').innerHTML=slots;
+	document.getElementById('FlexText').innerHTML=flex;
 
 	setCell('','Experiment!B2',slots); // callback
 	setCell('','Experiment!B3',spend); // callback
+	setCell('','Experiment!B4',flex); // callback
 
     document.getElementById('portfolio-chart-treemap').innerHTML = "<p>Please wait ... recalculating your portfolio</p>"
     setTimeout(drawChart,3000); // wait for spreadsheet to get new values and recalculate
@@ -132,7 +135,10 @@ portfolioOptions={
         headerHeight: 20,
         fontColor: 'black',
         showScale: true,
-		generateTooltip: showBoost
+		generateTooltip: showBoost,
+		maxPostDepth: 2,
+		hintOpacity: 0.0,
+		maxDepth: 1
     }
 	
 // clear care boosts
@@ -143,7 +149,7 @@ CareBoost = getUrlParameter('CareBoost');
 	 
 function drawChart() {
 	var query = new google.visualization.Query(
-    'https://docs.google.com/spreadsheets/d/1ZB-fGSOy-Z006AW_YZiBUsGsxlW03kuJmQh60PKzG-8/gviz/tq?gid=487731565&headers=1&range=i1:k27');
+    'https://docs.google.com/spreadsheets/d/1ZB-fGSOy-Z006AW_YZiBUsGsxlW03kuJmQh60PKzG-8/gviz/tq?gid=487731565&headers=1&range=i1:k57');
     query.send(handleQueryResponse);
 }
 
@@ -188,8 +194,18 @@ function showBoost(row, size, value) {
 
 	'Click here to <a href="#" onClick="doBoost('+row+');$(this).parent().hide(); ">CareBoost</a>.</div>';
 	
-	return html;
+	if (row==0) {
+		
+		// Flex Fund
+		
+	html = '<div style="background:#eee; padding:10px; border-style:solid">' +
+	'<b>Flex Fund [$'+ (portfolioData.getValue(row,2)*spend).toFixed(2) + ']</b><br><br>' +
+	'This amount goes to the shared fund to<br>be matched with new member donations.<br><br>' + 
+	'All money is paid out to causes in your portfolio.<br>';
 	}
+	
+	return html;
+}
 
 function doBoost(row) {
 	

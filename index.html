@@ -230,11 +230,15 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 			   <label>Number of Causes = </label>
 			   <span type="text" id="SlotsText" size="1">14</span><br>
 			   <input type="range" id="SlotsSlider" value="14" min="1" max="25" onChange="updateInput();"><br>
+			   <br>
 			   <label>Monthly Gift = $</label><input type="text" id="SpendText" size="3" value="100" onChange="updateInput();">
-    
+			   <br><br>
+			   <label>Flex Fund Share = </label>
+			   <span type="text" id="FlexText" size="1">25</span><label>%</label><br>
+			   <input type="range" id="FlexSlider" value="25" min="15" max="80" step="5" onChange="updateInput();"><br>
 		</div>
 		<div class="w3-twothird">
-			<div id='portfolio-chart-treemap' style="width: 600px; height: 450px;" onclick='drawChart();'>Chart goes here</div>
+			<div id='portfolio-chart-treemap' style="width: 600px; height: 450px;" onclick='drawChart();'>Loading ...</div>
 		</div>
 	  </div>
 	</div>
@@ -311,7 +315,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <img class="w3-circle" src="w3images/avatar2.png" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
-        <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
+        <h4>John <span class="w3-opacity w3-medium">Sep 29, 2020, 9:12 PM</span></h4>
         <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
       </div>
     </div>
@@ -321,7 +325,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <img class="w3-circle" src="w3images/avatar2.png" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
-        <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
+        <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2020, 10:15 PM</span></h4>
         <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
       </div>
     </div>
