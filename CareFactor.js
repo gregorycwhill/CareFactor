@@ -112,13 +112,19 @@ function updateInput(){
 	var slots = document.getElementById('SlotsSlider').value;
 	var spend = document.getElementById('SpendText').value;
 	var flex = document.getElementById('FlexSlider').value;
+	var follow = document.getElementById('FollowSlider').value;
+	var followName = document.getElementById('FollowName').value;
+	
 
 	document.getElementById('SlotsText').innerHTML=slots;
 	document.getElementById('FlexText').innerHTML=flex;
+	document.getElementById('FollowText').innerHTML=follow;
 
 	setCell('','Experiment!B2',slots); // callback
 	setCell('','Experiment!B3',spend); // callback
 	setCell('','Experiment!B4',flex); // callback
+	setCell('','Experiment!B5',followName); // callback
+	setCell('','Experiment!B6',follow); // callback
 
     document.getElementById('portfolio-chart-treemap').innerHTML = "<p>Please wait ... recalculating your portfolio</p>"
     setTimeout(drawChart,3000); // wait for spreadsheet to get new values and recalculate
@@ -149,7 +155,7 @@ CareBoost = getUrlParameter('CareBoost');
 	 
 function drawChart() {
 	var query = new google.visualization.Query(
-    'https://docs.google.com/spreadsheets/d/1ZB-fGSOy-Z006AW_YZiBUsGsxlW03kuJmQh60PKzG-8/gviz/tq?gid=487731565&headers=1&range=i1:k57');
+    'https://docs.google.com/spreadsheets/d/1ZB-fGSOy-Z006AW_YZiBUsGsxlW03kuJmQh60PKzG-8/gviz/tq?gid=487731565&headers=1&range=i1:k70');
     query.send(handleQueryResponse);
 }
 
@@ -202,6 +208,16 @@ function showBoost(row, size, value) {
 	'<b>Flex Fund [$'+ (portfolioData.getValue(row,2)*spend).toFixed(2) + ']</b><br><br>' +
 	'This amount goes to the shared fund to<br>be matched with new member donations.<br><br>' + 
 	'All money is paid out to causes in your portfolio.<br>';
+	}
+	
+	if (row==1) {
+		
+		// Follow Fund
+		
+	html = '<div style="background:#eee; padding:10px; border-style:solid">' +
+	'<b>Follow Fund [$'+ (portfolioData.getValue(row,2)*spend).toFixed(2) + ']</b><br><br>' +
+	'This amount goes to a curated portfolio of causes <b>managed by a trusted third party</b>.<br><br>' +
+	'It is automatically updated each month.<br><br>';
 	}
 	
 	return html;

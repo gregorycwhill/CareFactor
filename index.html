@@ -231,11 +231,31 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 			   <span type="text" id="SlotsText" size="1">14</span><br>
 			   <input type="range" id="SlotsSlider" value="14" min="1" max="25" onChange="updateInput();"><br>
 			   <br>
+
 			   <label>Monthly Gift = $</label><input type="text" id="SpendText" size="3" value="100" onChange="updateInput();">
 			   <br><br>
+
 			   <label>Flex Fund Share = </label>
 			   <span type="text" id="FlexText" size="1">25</span><label>%</label><br>
 			   <input type="range" id="FlexSlider" value="25" min="15" max="80" step="5" onChange="updateInput();"><br>
+
+			   <br>
+			   
+			   <label for="Follow">Following:</label>
+
+				<select name="Follow" id="FollowName" onChange="updateInput();">
+					<option value="Katy-Perry">Katy Perry</option>
+					<option value="GiveWell">GiveWell</option>
+					<option value="Bill-Gates">Bill Gates</option>
+					<option value="Dalai-Lama">Dalai Lama</option>
+					<option value="Patagonia">Patagonia</option>
+					<option value="Prince-Harry">Prince Harry</option>
+				</select>
+			   	<br><br>		   
+			   <label>Follow Fund Share = </label>
+			   <span type="text" id="FollowText" size="1">10</span><label>%</label><br>
+			   <input type="range" id="FollowSlider" value="10" min="0" max="80" step="5" onChange="updateInput();"><br>
+
 		</div>
 		<div class="w3-twothird">
 			<div id='portfolio-chart-treemap' style="width: 600px; height: 450px;" onclick='drawChart();'>Loading ...</div>
