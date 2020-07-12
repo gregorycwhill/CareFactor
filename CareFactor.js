@@ -152,7 +152,8 @@ portfolioOptions={
 		setCell('','Experiment!L'+i,'0');	
      
 CareBoost = getUrlParameter('CareBoost');
-	 
+
+	
 function drawChart() {
 	var query = new google.visualization.Query(
     'https://docs.google.com/spreadsheets/d/1ZB-fGSOy-Z006AW_YZiBUsGsxlW03kuJmQh60PKzG-8/gviz/tq?gid=487731565&headers=1&range=i1:k70');
@@ -262,6 +263,26 @@ function initPortfolio() {
 
 //	for(var i=2; i<28; i++) 
 //		setCell('','Experiment!L'+i,'0');
+
+
+	newFollow = getUrlParameter('Follow');
+		
+		if(newFollow) {
+
+		
+			f = document.getElementById('FollowName');
+			o = document.createElement('option');
+			o.text=newFollow;
+			o.value=newFollow.replace(/ /g,"-");
+	
+			f.add(o);
+	
+			f.selectedIndex=f.length-1;
+	
+			document.getElementById('portfolio-chart-treemap').innerHTML = "<p>Please wait ... Now following <b>" + newFollow + "</b>.</p>"
+			setTimeout(updateInput,3000);
+		}
+
 }
 
 function setParameters(){ 
