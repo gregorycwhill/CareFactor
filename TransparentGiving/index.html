@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Always force latest IE rendering engine -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="Requiem, matched, matching, charity, fund, gift, donation">
+	<!-- meta character set -->
+	<meta charset="utf-8">
+	<!-- Site Title -->
+	<title>Transparent Giving</title>
+	<!--
+        Google Fonts
+        ============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
+	<!--
+        CSS
+        ============================================= -->
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+</head>
+
+<body>
+	<div class="container-fluid px-1 py-5 mx-auto">
+		<div class="row d-flex justify-content-center">
+			<div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+				<div class="card">
+					<h3 class="text-center mb-4">About Your Donation</h3>
+					<form onchange="recalc_form();">
+						<div class="row">
+							<div class="col-6"> 
+								<span id="donationHelpBlock" class="form-text text-muted">How much you would like to give today?</span>
+								<div class="form-group row">
+									<label for="donation" class="col-6 col-form-label">Donation Amount</label>
+									<div class="col-6">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="input-group-text">$</div>
+											</div>
+											<input id="donation" name="donation" value="100" type="number" min="20" class="form-control" aria-describedby="donationHelpBlock" required="required"> </div>
+									</div>
+								</div> 
+								<span id="reinvestHelpBlock" class="form-text text-muted">How much would you like to reinvest in further fundraising?</span>
+								<div class="form-group row">
+									<label for="reinvest" class="col-6 col-form-label">Reinvestment</label>
+									<div class="col-6">
+										<div class="input-group">
+											<input id="reinvest" name="reinvest" value="25" type="number" min="0" class="form-control" aria-describedby="reinvestHelpBlock" required="required">
+											<div class="input-group-append">
+												<div class="input-group-text">%</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<span id="platformHelpBlock" class="form-text text-muted">How much would you like to tip the platform?</span>
+								<div class="form-group row">
+									<label class="col-6 col-form-label" for="platform">Platform Tip</label>
+									<div class="col-6">
+										<div class="input-group">
+											<input id="platform" name="platform" value="5" type="number" min="0" class="form-control" aria-describedby="platformHelpBlock" required="required">
+											<div class="input-group-append">
+												<div class="input-group-text">%</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<span id="paymentHelpBlock" class="form-text text-muted">This is the amount taken by our payment provider</span>
+								<div class="form-group row">
+									<label for="payment" class="col-6 col-form-label">Payment Fee</label>
+									<div class="col-6">
+										<div class="input-group">
+											<input id="payment" name="payment" value="2.1" type="number" class="form-control" aria-describedby="paymentHelpBlock" disabled>
+											<div class="input-group-append">
+												<div class="input-group-text">%</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<span id="fundraisingHelpBlock" class="form-text text-muted">This is the amount taken by our fundraisers</span>
+								<div class="form-group row">
+									<label for="fundraising" class="col-6 col-form-label">Fundraising Fee</label>
+									<div class="col-6">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="input-group-text">$</div>
+											</div>
+											<input id="fundraising" name="fundraising" value="15" type="number" class="form-control" aria-describedby="fundraisingHelpBlock" disabled> </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+							<span id="rec_nowHelpBlock" class="form-text text-muted">The amount distributed to the beneficiaries now</span>
+								<div class="form-group row">
+									<label for="rec_now" class="col-6 col-form-label">Received Now</label>
+									<div class="col-6">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="input-group-text">$</div>
+											</div>
+											<input id="rec_now" name="rec_now" type="number" class="form-control" aria-describedby="rec_nowHelpBlock" value="52" disabled> </div>
+									</div>
+								</div>
+								<span id="rec_laterHelpBlock" class="form-text text-muted">The estimated amount distributed to the beneficiaries over the next three years from further fundraising</span>
+								<div class="form-group row">
+									<label for="rec_later" class="col-6 col-form-label">Received Later</label>
+									<div class="col-6">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="input-group-text">$</div>
+											</div>
+											<input id="rec_later" name="rec_later" type="number" class="form-control" aria-describedby="rec_laterHelpBlock" value="33" disabled> </div>
+									</div>
+								</div>
+								<span id="rec_totalHelpBlock" class="form-text text-muted">Total amount received by the beneficiaries over time</span>
+								<div class="form-group row">
+									<label for="rec_total" class="col-6 col-form-label">Total Received</label>
+									<div class="col-6">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="input-group-text">$</div>
+											</div>
+											<input id="rec_total" name="rec_total" type="number" class="form-control" aria-describedby="rec_totalHelpBlock" value="85" disabled> </div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-0"></label>
+									<div class="col-12">
+									<span id="performHelpBlock" class="form-text text-muted">Would you like to be informed of our fundraising performance?</span>
+										<div class="custom-control custom-radio">
+											<input name="perform" id="perform_0" type="radio" aria-describedby="performHelpBlock" class="custom-control-input" value="yes" checked>
+											<label for="perform_0" class="custom-control-label">Yes, send me an annual email</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input name="perform" id="perform_1" type="radio" aria-describedby="performHelpBlock" class="custom-control-input" value="no">
+											<label for="perform_1" class="custom-control-label">No, thank you</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>			
+								<div class="form-group row">
+									<label class="col-1 col-form-label"></label>
+									<div class="col-6">
+										<table class="table table-striped table-hover table-sm">
+											<thead class="thead-dark">
+												<tr>
+													<th scope="col">Activity</th>
+													<th scope="col">Return</th>
+													<th scope="col">Use?</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row">Mail</th>
+													<td>1.1</td>
+													<td>
+														<div class="custom-control custom-checkbox">
+															<input name="activities" id="activities_0" type="checkbox" aria-describedby="activitiesHelpBlock" class="custom-control-input" value="mail" checked="checked">
+															<label for="activities_0" class="custom-control-label"></label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">Web</th>
+													<td>1.2</td>
+													<td>
+														<div class="custom-control custom-checkbox">
+															<input name="activities" id="activities_1" type="checkbox" aria-describedby="activitiesHelpBlock" class="custom-control-input" value="web" checked="checked">
+															<label for="activities_1" class="custom-control-label"></label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">Social</th>
+													<td>1.3</td>
+													<td>
+														<div class="custom-control custom-checkbox">
+															<input name="activities" id="activities_2" type="checkbox" aria-describedby="activitiesHelpBlock" class="custom-control-input" value="social" checked="checked">
+															<label for="activities_2" class="custom-control-label"></label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">Email</th>
+													<td>1.4</td>
+													<td>
+														<div class="custom-control custom-checkbox">
+															<input name="activities" id="activities_3" type="checkbox" aria-describedby="activitiesHelpBlock" class="custom-control-input" value="email" checked="checked">
+															<label for="activities_3" class="custom-control-label"></label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">Telemarketing</th>
+													<td>1.5</td>
+													<td>
+														<div class="custom-control custom-checkbox">
+															<input name="activities" id="activities_4" type="checkbox" aria-describedby="activitiesHelpBlock" class="custom-control-input" value="tele" checked="checked">
+															<label for="activities_4" class="custom-control-label"></label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">In-Person</th>
+													<td>1.6</td>
+													<td>
+														<div class="custom-control custom-checkbox">
+															<input name="activities" id="activities_5" type="checkbox" aria-describedby="activitiesHelpBlock" class="custom-control-input" value="inperson" checked="checked">
+															<label for="activities_5" class="custom-control-label"></label>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-3"> 
+									<span id="activitiesHelpBlock" class="form-text text-muted">Please select the fundraising activities you'd like to support.</span> <span id="activitiesHelpBlock" class="form-text text-muted">Returns are estimated return on investment for each activity over three years.</span> </div>
+								</div>
+								<div class="form-group row">
+									<div class="offset-6 col-12">
+										<button name="submit" type="submit" class="btn btn-primary">Submit</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--
+        JavaScripts
+        ========================== -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>
